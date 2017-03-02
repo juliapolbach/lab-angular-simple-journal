@@ -1,3 +1,4 @@
+/*jshint esversion:6*/
 const express      = require('express');
 const path         = require('path');
 const favicon      = require('serve-favicon');
@@ -6,7 +7,8 @@ const cookieParser = require('cookie-parser');
 const bodyParser   = require('body-parser');
 const layouts      = require('express-ejs-layouts');
 const mongoose     = require('mongoose');
-
+const apiController = require ('./routes/api/journal-entries');
+const cors          = require("cors");
 mongoose.connect('mongodb://localhost/journal-development');
 
 const app = express();
@@ -17,7 +19,7 @@ app.set('view engine', 'ejs');
 
 // default value for title local
 app.locals.title = 'Express - Generated with IronGenerator';
-
+app.use(cors());
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -29,6 +31,7 @@ app.use(layouts);
 
 const index = require('./routes/index');
 app.use('/', index);
+app.use('/api', apiController);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

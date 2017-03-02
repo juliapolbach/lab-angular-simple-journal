@@ -1,0 +1,10 @@
+<p>
+  entry-list works!
+</p>
+<ul>
+    <li *ngFor="let item of entry">
+    <span>{{item.title}}</span>
+    <a [routerLink]="['/entries', item._id]"> Back to list </a>
+
+  </li>
+</ul>
